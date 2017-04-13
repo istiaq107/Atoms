@@ -60,6 +60,8 @@ void deleteAtom(struct root *list, struct atom *position);
 /* When an atom is added, adds if grid space empty, or does other stuff */
 void addAtom(struct root *list, char player, int x, int y, bool chain);
 
+void delete_list(struct root *list);
+
 /* Shows the board */
 void printBoard(struct root *list, struct dim *dim);
 

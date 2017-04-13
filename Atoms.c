@@ -112,6 +112,16 @@ void addAtom(struct root *list, char player, int x, int y, bool chain){
     }
 }
 
+void delete_list(struct root *list){
+	struct atom current = list->first;
+
+	while (current) {
+		struct atom delete = current;
+		current = current->next;
+		free(delete);
+	}
+	free(list);
+}
 
 void printBoard(struct root *list, struct dim *dim){
     int xMax = dim->xDim;

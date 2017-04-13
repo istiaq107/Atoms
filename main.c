@@ -10,20 +10,9 @@
 #include <stdbool.h>
 #include "Atoms.h"
 
-void printList(struct root *list){
-    struct atom *node = list->first;
-    while (node) {
-        printf("%c%d (%d, %d)\n", node->player, node->atoms, node->x, node->y);
-        node = node->next;
-    }
-}
-/* I tested a couple of cases
-test more thoroughly to see if it works*/
 int main(int argc, const char * argv[]) {
     struct dim *dim = enter_dim(6, 6);
     struct root *list = createList();
-    //addAtom(list, 'R', 0, 1, false);
     printBoard(list, dim);
-    //printList(list);
-    //printf("%d\n", list->length);
+    delete_list(list);
 }
