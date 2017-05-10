@@ -78,7 +78,7 @@ void deleteAtom(struct root *list, struct atom *position){
     }
 }
 
-void addAtom(struct root *list, char player, int x, int y, bool chain){
+bool addAtom(struct root *list, char player, int x, int y, bool chain){
     int limit = assignLimit(x, y);
     struct atom *node = atomPresent(list, x, y);
     if (node && chain) node->player = player;
@@ -93,7 +93,7 @@ void addAtom(struct root *list, char player, int x, int y, bool chain){
             ++(node->atoms);
 
         } else {
-            if (list->length > (dimensions.xDim * dimensions.yDim)) return; /* This is to stop the chain reaction when grid is filled*/
+            if (list->length > (dimensions.xDim * dimensions.yDim)) return true; /* This is to stop the chain reaction when grid is filled*/
             deleteAtom(list, node);
             int xInc = x + 1;
             int xDec = x - 1;
@@ -105,18 +105,15 @@ void addAtom(struct root *list, char player, int x, int y, bool chain){
             if (yDec > 0) addAtom(list, player, x, y+1, true);
         }
 
-    } else {
-        /* This executes when the player chooses a grid space that
-         is not owned by him*/
-        return;
     }
+    return false;
 }
 
 void delete_list(struct root *list){
-	struct atom current = list->first;
+	struct atom *current = list->first;
 
 	while (current) {
-		struct atom delete = current;
+		struct atom *delete = current;
 		current = current->next;
 		free(delete);
 	}
